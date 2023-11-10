@@ -13,6 +13,7 @@ const {name,image,price,recipe} = item;
       </div>
       <p className="text-yellow-500">${price}</p>
     </div>
+    
   );
 };
 
