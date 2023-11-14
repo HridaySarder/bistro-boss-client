@@ -1,5 +1,64 @@
+
+import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useCart from "../hooks/useCart";
+
 const FoodCard = ({ item }) => {
-  const { name, image, price, recipe } = item;
+  const { name, image, price, recipe, _id } = item;
+  const {user} = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation();
+  const axiosSecure = useAxiosSecure()
+  const [,refetch] = useCart()
+
+  const handleAddCart = () => {
+    if(user && user.email){
+     
+      const cartItem = {
+        menuId: _id,
+        email: user.email,
+        name,
+        image,
+        price
+      }
+      axiosSecure.post('http://localhost:5000/carts', cartItem)
+      .then(res => {
+        console.log(res.data);
+        if(res.data.insertedId){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${name} added succefull`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch();
+        }
+      })
+    }
+    else{
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login', {state: {from:location}})
+          // Swal.fire({
+          //   title: "Deleted!",
+          //   text: "Your file has been deleted.",
+          //   icon: "success"
+          // });
+        }
+      });
+    }
+  }
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure>
@@ -14,7 +73,7 @@ const FoodCard = ({ item }) => {
         <p>{recipe}</p>
        
         <div className="card-actions justify-end">
-          <button className="btn btn-outline border-0 border-b-4 mt-5 bg-slate-100 border-orange-400">Add to Cart</button>
+        <button onClick={ handleAddCart} className="btn btn-outline border-0 border-b-4 mt-5 bg-slate-100 border-orange-400">Add to Cart</button>
         </div>
       </div>
     </div>
