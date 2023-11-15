@@ -3,6 +3,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import SocialLogin from './SocialLogin';
 
 
 const Login = () => {
@@ -99,6 +100,7 @@ setDisabled(true)
         </div>
       </form>
       <p>New here <Link to={'/signUp'}>Create an account</Link></p>
+      <SocialLogin></SocialLogin>
     </div>
   </div>
 </div>

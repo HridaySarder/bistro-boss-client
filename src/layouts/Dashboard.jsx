@@ -1,4 +1,4 @@
-import { FaCalendar, FaHome,  FaShoppingCart } from "react-icons/fa";
+import { FaAd, FaCalendar, FaEnvelope, FaHome,  FaList,  FaShoppingCart, FaUser, FaUtensils } from "react-icons/fa";
 import { MdMenu, MdReviews } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 
@@ -7,11 +7,53 @@ import useCart from "../components/hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart()
+const isAdmin = true;
+
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-[#D1A054]">
         <ul className="menu">
+          {
+            isAdmin ? <>
+            <li>
+            <NavLink to={"/dashboard/adminHome"}>
+              <FaHome></FaHome>
+              Admin Home
+            </NavLink>
+          </li>
           <li>
+            <NavLink to={"/dashboard/addItems"}>
+              <FaUtensils></FaUtensils>
+              Add Items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/dashboard/manageItems"}>
+              <FaList></FaList>
+              Manage Items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/dashboar/manageReviews"}>
+            <FaAd></FaAd>
+              Manage Reviews
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/dashboar/manageBooking"}>
+            <FaAd></FaAd>
+             Manage Booking
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/dashboard/users"}>
+            <FaUser></FaUser>
+              All Users
+            </NavLink>
+          </li>
+            </> :
+            <>
+            <li>
             <NavLink to={"/dashboard/userHome"}>
               <FaHome></FaHome>
               User Home
@@ -41,6 +83,8 @@ const Dashboard = () => {
               My Bookings
             </NavLink>
           </li>
+            </>
+          }
 
           <div className="divider"></div>
 
@@ -55,6 +99,12 @@ const Dashboard = () => {
             <NavLink to={"/menu/salad"}>
               <MdMenu></MdMenu>
               Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/menu/contact"}>
+              <FaEnvelope></FaEnvelope>
+              Contact
             </NavLink>
           </li>
         </ul>
