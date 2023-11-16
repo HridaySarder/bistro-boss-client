@@ -14,6 +14,7 @@ const SignUp = () => {
 const navigate = useNavigate();
   const onSubmit = data => {
     console.log(data)
+    
     createUser(data.email,data.password)
     .then(result => {
       const loggedUser = result.user;
@@ -24,6 +25,7 @@ const navigate = useNavigate();
           name: data.name,
           email: data.email
         }
+        console.log(userInfo);
         axiosPublic.post('/users',userInfo)
         .then(res => {
           if(res.data.insertedId){
@@ -57,8 +59,8 @@ const navigate = useNavigate();
             <label className="label">
               <span className="label-text">Name</span>
             </label>
-            <input type="name"  {...register("nameRequired",{ required: true })} placeholder="email" className="input input-bordered" required />
-            {errors.nameRequired && <span className="text-red-700">Name is required</span>}
+            <input type="name"  {...register("name",{ required: true })} placeholder="email" className="input input-bordered" required />
+            {errors.name && <span className="text-red-700">Name is required</span>}
           </div>
           <div className="form-control">
             <label className="label">
