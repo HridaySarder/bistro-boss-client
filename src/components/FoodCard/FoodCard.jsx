@@ -23,7 +23,7 @@ const FoodCard = ({ item }) => {
         image,
         price
       }
-      axiosSecure.post('http://localhost:5000/carts', cartItem)
+      axiosSecure.post('https://bistro-boss-server-two-green.vercel.app/carts', cartItem)
       .then(res => {
         console.log(res.data);
         if(res.data.insertedId){
